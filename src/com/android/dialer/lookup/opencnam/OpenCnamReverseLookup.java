@@ -28,6 +28,7 @@ import android.util.Pair;
 
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
+import org.apache.http.HttpStatus;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -68,10 +69,9 @@ public class OpenCnamReverseLookup extends ReverseLookup {
             String normalizedNumber, String formattedNumber) {
         String displayName;
 
-        if (normalizedNumber != null && normalizedNumber.startsWith("+") &&
-            !normalizedNumber.startsWith("+1")) {
-             // Any non-US number will return "We currently accept only US numbers"
-             return null;
+        if (normalizedNumber.startsWith("+") &&!normalizedNumber.startsWith("+1")) {
+            // Any non-US number will return "We currently accept only US numbers"
+            return null;
         }
         try {
             displayName = httpGetRequest(normalizedNumber);
@@ -130,7 +130,7 @@ public class OpenCnamReverseLookup extends ReverseLookup {
 
         HttpResponse response = client.execute(request);
 
-        if (response.getStatusLine().getStatusCode() != 200) {
+        if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
             throw new IOException();
         }
 
