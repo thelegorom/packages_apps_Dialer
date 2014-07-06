@@ -440,7 +440,7 @@ public class DialpadFragment extends Fragment
             mDelete.setOnLongClickListener(this);
         }
 
-        mSpacer = fragmentView.findViewById(R.id.spacer);
+        mSpacer = mFragmentView.findViewById(R.id.spacer);
         mSpacer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
